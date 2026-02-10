@@ -2,16 +2,17 @@ FROM python:3.11-slim
 
 WORKDIR /app
 
-# Install system dependencies for Tesseract
+# Install system dependencies for Tesseract + build tools for numpy/scikit-learn
 RUN apt-get update && apt-get install -y \
     tesseract-ocr \
     tesseract-ocr-eng \
     tesseract-ocr-hin \
     tesseract-ocr-tam \
+    gcc g++ \
     && rm -rf /var/lib/apt/lists/*
 
-COPY requirements.txt .
-RUN pip install --no-cache-dir -r requirements.txt
+COPY requirements-sqlite.txt .
+RUN pip install --no-cache-dir -r requirements-sqlite.txt
 
 COPY . .
 
