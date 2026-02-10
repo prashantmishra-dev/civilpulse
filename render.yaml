@@ -25,22 +25,24 @@ services:
   - type: web
     name: civicpulse-kiosk
     env: static
-    buildCommand: cd frontend-kiosk && npm install && npm run build
-    staticPublishPath: frontend-kiosk/dist
+    buildCommand: npm install && npm run build
+    staticPublishPath: ./dist
+    rootDir: frontend-kiosk
     routes:
       - type: rewrite
         source: /*
         destination: /index.html
     envVars:
       - key: VITE_API_URL
-        value: "https://civicpulse-backend.onrender.com" # Placeholder, update in dashboard if needed
+        value: "https://civicpulse-backend.onrender.com"
 
   # ADMIN FRONTEND (React/Vite)
   - type: web
     name: civicpulse-admin
     env: static
-    buildCommand: cd frontend-admin && npm install && npm run build
-    staticPublishPath: frontend-admin/dist
+    buildCommand: npm install && npm run build
+    staticPublishPath: ./dist
+    rootDir: frontend-admin
     routes:
       - type: rewrite
         source: /*
