@@ -49,9 +49,9 @@ services:
       - key: VITE_API_URL
         value: "https://civicpulse-backend.onrender.com" # Placeholder, update in dashboard if needed
 
-databases:
-  - name: civicpulse-db
-    databaseName: civicpulse
-    user: civicpulse
-    plan: free
-    region: singapore
+# databases:
+#   - name: civicpulse-db
+#     databaseName: civicpulse
+#     user: civicpulse
+#     plan: free
+#     region: singapore

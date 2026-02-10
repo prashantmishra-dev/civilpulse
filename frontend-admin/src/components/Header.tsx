@@ -102,8 +102,7 @@ export default function Header({
   isClusteringRunning = false,
   onToggleEmergency,
   isEmergencyMode,
-  onRefresh, // New prop
-}: HeaderProps & { onRefresh: () => void }) {
+}: HeaderProps) {
   const [showShortcuts, setShowShortcuts] = useState(false);
   const [liveDot, setLiveDot] = useState(true);
 

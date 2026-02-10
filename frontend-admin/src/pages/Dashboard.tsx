@@ -291,10 +291,6 @@ export default function Dashboard() {
         isClusteringRunning={isClusteringRunning}
         onToggleEmergency={handleToggleEmergency}
         isEmergencyMode={isEmergencyMode}
-        onRefresh={() => {
-          loadData();
-          success('Refreshed', 'Dashboard data updated.');
-        }}
       />
 
       {/* Main Content */}
