@@ -3,16 +3,16 @@ services:
   - type: web
     name: civicpulse-backend
     env: docker
-    region: singapore
+    region: oregon
     plan: free
     dockerContext: backend
-    dockerfilePath: backend/Dockerfile
+    dockerfilePath: Dockerfile
     healthCheckPath: /
     envVars:
       - key: DATABASE_URL
-        sync: false # User must provide this manually if they have an existing DB
+        value: "sqlite:///./civicpulse.db"
       - key: PYTHON_VERSION
-        value: 3.11.0
+        value: "3.11.0"
 
 # databases:
 #   - name: civicpulse-db
@@ -21,35 +21,35 @@ services:
 #     plan: free
 #     region: singapore
 
-  # KIOSK FRONTEND (React/Vite)
-  - type: web
-    name: civicpulse-kiosk
-    env: static
-    buildCommand: npm install && npm run build
-    staticPublishPath: ./dist
-    rootDir: frontend-kiosk
-    routes:
-      - type: rewrite
-        source: /*
-        destination: /index.html
-    envVars:
-      - key: VITE_API_URL
-        value: "https://civicpulse-backend.onrender.com"
-
-  # ADMIN FRONTEND (React/Vite)
-  - type: web
-    name: civicpulse-admin
-    env: static
-    buildCommand: npm install && npm run build
-    staticPublishPath: ./dist
-    rootDir: frontend-admin
-    routes:
-      - type: rewrite
-        source: /*
-        destination: /index.html
-    envVars:
-      - key: VITE_API_URL
-        value: "https://civicpulse-backend.onrender.com" # Placeholder, update in dashboard if needed
+#   # KIOSK FRONTEND (React/Vite)
+#   - type: web
+#     name: civicpulse-kiosk
+#     env: static
+#     buildCommand: npm install && npm run build
+#     staticPublishPath: dist
+#     rootDir: frontend-kiosk
+#     routes:
+#       - type: rewrite
+#         source: /*
+#         destination: /index.html
+#     envVars:
+#       - key: VITE_API_URL
+#         value: "https://civicpulse-backend.onrender.com"
+# 
+#   # ADMIN FRONTEND (React/Vite)
+#   - type: web
+#     name: civicpulse-admin
+#     env: static
+#     buildCommand: npm install && npm run build
+#     staticPublishPath: dist
+#     rootDir: frontend-admin
+#     routes:
+#       - type: rewrite
+#         source: /*
+#         destination: /index.html
+#     envVars:
+#       - key: VITE_API_URL
+#         value: "https://civicpulse-backend.onrender.com" # Placeholder, update in dashboard if needed
 
 # databases:
 #   - name: civicpulse-db
