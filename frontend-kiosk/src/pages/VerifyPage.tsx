@@ -10,7 +10,7 @@ export default function VerifyPage() {
     const [inputCode, setInputCode] = useState(shortCode || '');
     const [loading, setLoading] = useState(false);
     const [result, setResult] = useState<ReceiptVerifyResponse | null>(null);
-    const [error, setError] = useState<string | null>(null);
+    // const [error, setError] = useState<string | null>(null);
 
     useEffect(() => {
         if (shortCode) {
@@ -20,14 +20,14 @@ export default function VerifyPage() {
 
     const handleVerify = async (code: string) => {
         setLoading(true);
-        setError(null);
+        // setError(null);
         setResult(null);
         try {
             const res = await api.get<ReceiptVerifyResponse>(`/receipt/verify-shortcode/${code}`);
             setResult(res.data);
         } catch (err) {
             console.error(err);
-            setError("Invalid code or verification failed.");
+            // setError("Invalid code or verification failed.");
         } finally {
             setLoading(false);
         }

@@ -76,7 +76,7 @@ export default function ReceiptPage() {
   const [receipt, setReceipt] = useState<ReceiptData | null>(null);
   const [verification, setVerification] = useState<VerificationStatus | null>(null);
   const [loading, setLoading] = useState(true);
-  const [showConfetti, setShowConfetti] = useState(true);
+  const [showConfetti] = useState(true);
   const [verifying, setVerifying] = useState(false);
   const [impactMessage, setImpactMessage] = useState("");
   const lang = (sessionStorage.getItem("selectedLanguage") as Language) || "en";

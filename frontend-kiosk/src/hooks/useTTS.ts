@@ -73,7 +73,7 @@ const LANG_CODES: Record<Language, string> = {
 export function useTTS(options: TTSOptions): UseTTSReturn {
     const { lang, rate = 0.9, pitch = 1.0, volume = 1.0, onStart, onEnd, onError } = options;
     const [isSpeaking, setIsSpeaking] = useState(false);
-    const [availableVoices, setAvailableVoices] = useState<SpeechSynthesisVoice[]>([]);
+    // const [availableVoices, setAvailableVoices] = useState<SpeechSynthesisVoice[]>([]);
     const utteranceRef = useRef<SpeechSynthesisUtterance | null>(null);
 
     const isSupported = typeof window !== 'undefined' && 'speechSynthesis' in window;
@@ -84,12 +84,12 @@ export function useTTS(options: TTSOptions): UseTTSReturn {
 
         const loadVoices = () => {
             const voices = window.speechSynthesis.getVoices();
-            setAvailableVoices(voices);
+            // setAvailableVoices(voices);
             console.log('Available voices:', voices.map(v => `${v.name} (${v.lang})`));
         };
 
         loadVoices();
-        
+
         // Some browsers load voices asynchronously
         if (window.speechSynthesis.onvoiceschanged !== undefined) {
             window.speechSynthesis.onvoiceschanged = loadVoices;
@@ -128,10 +128,10 @@ export function useTTS(options: TTSOptions): UseTTSReturn {
 
         // Find the best voice for the selected language
         const voices = window.speechSynthesis.getVoices();
-        
+
         // Try to find a voice that matches the language exactly
         let selectedVoice = voices.find(voice => voice.lang === targetLang);
-        
+
         // If no exact match, try to find a voice for the language family (e.g., 'ta' for 'ta-IN')
         if (!selectedVoice) {
             const langPrefix = targetLang.split('-')[0];
@@ -149,7 +149,7 @@ export function useTTS(options: TTSOptions): UseTTSReturn {
             console.log(`Using voice: ${selectedVoice.name} (${selectedVoice.lang})`);
         } else {
             console.warn(`No voice found for language: ${targetLang}. Available voices:`, voices.map(v => `${v.name} (${v.lang})`));
-            
+
             // Show user-friendly error for Tamil
             if (lang === 'ta') {
                 const errorMsg = 'Tamil voice not available on this device. Please install Tamil language support in your system settings.';
@@ -222,10 +222,10 @@ export function speak(text: string, lang: Language = 'en'): void {
 
         // Find the best voice for the selected language
         const voices = window.speechSynthesis.getVoices();
-        
+
         // Try to find a voice that matches the language exactly
         let selectedVoice = voices.find(voice => voice.lang === targetLang);
-        
+
         // If no exact match, try to find a voice for the language family
         if (!selectedVoice) {
             const langPrefix = targetLang.split('-')[0];
