@@ -44,7 +44,7 @@ app.include_router(ai_alerts.router)
 app.include_router(integrations.router)
 app.include_router(emergency.router)
 
-@app.get("/")
+@app.api_route("/", methods=["GET", "HEAD"])
 async def root():
     return {"message": "CivicPulse API", "status": "running"}
 
@@ -55,11 +55,14 @@ async def health():
 @app.on_event("startup")
 async def startup_event():
     import asyncio
-    from app.sla_scheduler import check_sla_escalations
     
     async def run_scheduler():
         while True:
-            await check_sla_escalations()
-            await asyncio.sleep(60) # Run every minute
+            try:
+                from app.sla_scheduler import check_sla_escalations
+                await check_sla_escalations()
+            except Exception as e:
+                print(f"SLA scheduler skipped: {e}")
+            await asyncio.sleep(300)  # Run every 5 minutes
             
     asyncio.create_task(run_scheduler())
