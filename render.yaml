@@ -6,7 +6,7 @@ services:
     region: oregon
     plan: free
     dockerContext: backend
-    dockerfilePath: Dockerfile
+    dockerfilePath: backend/Dockerfile
     healthCheckPath: /
     envVars:
       - key: DATABASE_URL
